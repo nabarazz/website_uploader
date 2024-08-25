@@ -1,0 +1,87 @@
+<odoo>
+    <template id="website_upload_page" name="Website Page">
+        <t t-call="web.html_container">
+            <style type="text/css">
+                <!--                @import url('https://fonts.googleapis.com/css2?family=Courier+Prime&amp;display=swap');-->
+                <!--                table,th,td,h5{-->
+                <!--                border: 1px solid black;-->
+                <!--                width="100%"-->
+                <!--                font-size:20px;-->
+                <!--                font-family: Arial, Helvetica, sans-serif;-->
+                <!--                }-->
+                table {
+                font-size:15px;
+                }
+
+                h5{
+                height: 827px;
+                }
+                embed{
+                width: 100%;
+                height: 100%;
+                }
+            </style>
+
+            <script type="text/javascript">
+                function copyLink(event) {
+                const button = event.target;
+                const baseUrl = window.location.origin;
+                const linkElement = button.parentNode.querySelector('a[target="_blank"][rel="noopener noreferrer"]');
+                const link = baseUrl + linkElement.getAttribute('href');
+                navigator.clipboard.writeText(link);
+                alert("Link copied to clipboard!");
+                }
+            </script>
+
+            <table class="table table-bordered">
+                <thead style="text-align:center;">
+                    <tr>
+                        <!--                            <th scope="col">FILE NAME</th>-->
+                        <!--                            <th scope="col">DESCRIPTION</th>-->
+                        <th scope="col">FILE PREVIEW</th>
+                        <th scope="col">LINK</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="my_data" t-as="data">
+                        <tr>
+                            <td style="width:100%; height:100%;">
+                                <t t-if="not data.file">
+                                    <span>&#160;</span>
+                                </t>
+                                <t t-if="data.file">
+                                    <h5>
+                                        <embed t-attf-src="data:application/pdf;base64,{{data.file}}"/>
+                                    </h5>
+                                </t>
+                            </td>
+
+                            <td>
+                                <t t-if="not data">
+                                    <span>&#160;</span>
+                                </t>
+                                <t t-if="data">
+                                    <h5 style="font-size: 15px; text-align: left; padding:395px 10px; width: 150px;">
+                                        <a t-attf-href="/web/content/website.upload.file/{{data.id}}/file/{{data.name}}"
+                                           target="_blank"
+                                           rel="noopener noreferrer">
+                                            <i class="fa fa-file-pdf-o"/>&#160;<span t-esc="data.name"/>
+                                        </a>
+                                        <br/>
+                                        <!--                                        <button class="btn btn-outline-primary btn-sm" onclick="copyLink()">Copy</button>-->
+                                        <button class="btn btn-outline-primary btn-sm" onclick="copyLink(event)">Copy
+                                        </button>
+
+                                    </h5>
+                                </t>
+                            </td>
+
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+            <!--            </div>-->
+        </t>
+    </template>
+</odoo>
+

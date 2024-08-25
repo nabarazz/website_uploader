@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="website_upload_action_main" model="ir.actions.act_window">
+            <field name="name">Website Upload</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">website.upload</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="uploaded_files_action" model="ir.actions.act_window">
+            <field name="name">Uploaded files</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">website.upload.file</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- This Menu Item will appear in the Upper bar, That's why It needs NO parent or action -->
+
+        <menuitem id="website_root" name="Upload File" sequence="10"/>
+
+        <!-- This Menu Item Must have a parent -->
+        <menuitem id="website_parent" name="Website Upload" parent="website_root" sequence="1"/>
+
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="website_action_root" name="Files" parent="website_parent" action="website_upload_action_main"
+                  sequence="1"/>
+
+        <menuitem id="website_uploaded_action_root" name="Uploaded Files" parent="website_parent"
+                  action="uploaded_files_action"
+                  sequence="2"/>
+
+
+    </data>
+</odoo>
